@@ -1,8 +1,20 @@
 import { Component, computed, EventEmitter, input, Input, Output, output,signal } from '@angular/core';
-
 import { DUMMY_USERS } from '../../dummy-users';
+import { User } from './user.model';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length)
+
+// type User = {
+//   id: string;
+//   avatar: string;
+//   name: string;
+// }
+
+// interface User {
+//   id: string;
+//   avatar: string;
+//   name: string;
+// }
 
 @Component({
   selector: 'app-user',
@@ -13,7 +25,7 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length)
 })
 export class UserComponent {
 
-  // singal based approach
+  // signal based approach
   // avatar = input.required<string>();
   // name = input.required<string>();
 
@@ -22,16 +34,21 @@ export class UserComponent {
   // });
 
 // ----------------------------------------------------------------------------
-  @Input({required: true}) id!: string;
-  @Input({required: true}) avatar!: string;
-  @Input({required: true}) name!: string;
+  // @Input({required: true}) id!: string;
+  // @Input({required: true}) avatar!: string;
+  // @Input({required: true}) name!: string;
+
+  @Input({ required: true }) user!: User;
+  @Input({ required: true }) selected!: boolean;
+
+  // ----------------------------------------------------------------------------
 
   @Output() select = new EventEmitter<string>(); //this is a custom event which emits event, this is widely used from Angular 2
   //instead of custom event as line 28
   //select = output<string>(); //input creates a signal output doesn't
 
   get imagePath(){
-    return 'assets/users/' + this.avatar
+    return 'assets/users/' + this.user.avatar
   }
 
   // ----------------------------------------------------------------------------
@@ -45,7 +62,7 @@ export class UserComponent {
     // //this.selectedUser = DUMMY_USERS[randomIndex];
     // console.log('Clicked!');
 
-    this.select.emit("Id: "+this.id+" name: "+this.name);
+    this.select.emit(this.user.id);
    //this.select.emit(2);
   }
 }
