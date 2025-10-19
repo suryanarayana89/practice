@@ -18,8 +18,7 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length)
 
 @Component({
   selector: 'app-user',
-  standalone: true,
-  imports: [],
+  standalone: false,
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
